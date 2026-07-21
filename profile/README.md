@@ -38,6 +38,9 @@ L3 — Governance        Branch strategy · Release process · SBOM · CODEOWNER
 | [`dea-catalog-ontologies`](https://github.com/technehub-labs/dea-catalog-ontologies) | L1 | OWL/RDF ontologies formalising the DEA domain |
 | [`dea-catalog-metrics`](https://github.com/technehub-labs/dea-catalog-metrics) | L1 | Business & technology KPIs and measurement frameworks |
 | [`dea-catalog-reference-models`](https://github.com/technehub-labs/dea-catalog-reference-models) | L1 | Reference architectures (TOGAF, Zachman,KEA) |
+| [`dea-catalog-digital-business-service-factory`](https://github.com/technehub-labs/dea-catalog-digital-business-service-factory) | L1 | Enterprise business services, capability maps, SLA governance (Customer, Finance, Product, Order, Supply Chain, HR) |
+| [`dea-catalog-agent-foundry`](https://github.com/technehub-labs/dea-catalog-agent-foundry) | L1 | Autonomous agent patterns, platform specs, orchestration frameworks, AI governance |
+| [`dea-catalog-solution-hub`](https://github.com/technehub-labs/dea-catalog-solution-hub) | L1 | Solution archetypes, delivery templates, IaC accelerators for CDP, API Gateway, Event Streaming, Identity, Workflow |
 | [`dea-catalog-reference-architecture`](https://github.com/technehub-labs/dea-catalog-reference-architecture) | L1 | DERA — canonical delivery blueprint assembling all layers into a four-phase adoption programme |
 | [`dea-cli`](https://github.com/technehub-labs/dea-cli) | L2 | DEA CLI — query, validate, generate viewpoints |
 | [`dea-scripts`](https://github.com/technehub-labs/dea-scripts) | L2 | Automation scripts, code generators, migrators |
