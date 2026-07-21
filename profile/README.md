@@ -38,6 +38,7 @@ L3 — Governance        Branch strategy · Release process · SBOM · CODEOWNER
 | [`dea-catalog-ontologies`](https://github.com/technehub-labs/dea-catalog-ontologies) | L1 | OWL/RDF ontologies formalising the DEA domain |
 | [`dea-catalog-metrics`](https://github.com/technehub-labs/dea-catalog-metrics) | L1 | Business & technology KPIs and measurement frameworks |
 | [`dea-catalog-reference-models`](https://github.com/technehub-labs/dea-catalog-reference-models) | L1 | Reference architectures (TOGAF, Zachman,KEA) |
+| [`dea-catalog-reference-architecture`](https://github.com/technehub-labs/dea-catalog-reference-architecture) | L1 | DERA — canonical delivery blueprint assembling all layers into a four-phase adoption programme |
 | [`dea-cli`](https://github.com/technehub-labs/dea-cli) | L2 | DEA CLI — query, validate, generate viewpoints |
 | [`dea-scripts`](https://github.com/technehub-labs/dea-scripts) | L2 | Automation scripts, code generators, migrators |
 | [`dea-code-gen`](https://github.com/technehub-labs/dea-code-gen) | L2 | Config-driven code generation from catalog entries |
@@ -58,7 +59,7 @@ The metamodel defines the canonical entities and relationships used across all c
 
 ### Layer 1 — Reference Catalogs
 
-Structured collections of architecture assets, each entry typed against the metamodel, with relationships and provenance metadata.
+Structured collections of architecture assets, each entry typed against the metamodel, with relationships and provenance metadata. The centrepiece is **DERA** — the Digital Enterprise Reference Architecture — a synthesising blueprint that assembles all other catalogs into a coherent delivery programme.
 
 ### Layer 2 — Tooling
 
