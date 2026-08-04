@@ -4,7 +4,7 @@
 
 [![org](https://img.shields.io/badge/TechNeHub%20Labs-DEA-0088CC?style=flat-square&logo=github)](https://github.com/technehub-labs)
 [![Stage: Alpha](https://img.shields.io/badge/Stage-Alpha-FF6B35?style=flat-square)](https://github.com/technehub-labs/dea-metamodel)
-[![License: MIT](https://img.shields.io/badge/License-MIT-44CC11?style=flat-square)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](LICENSE)
 
 ---
 
@@ -22,7 +22,7 @@ The framework is built in layers — from a shared metamodel that defines the co
 L0 — Metamodel         Core entity definitions, relationships, JSON Schema, TTL ontology, SQLite schema
 L1 — Reference Catalogs  Principles · Standards · Patterns · Glossary · Taxonomies · Ontologies · Metrics · Reference Models
 L2 — Tooling           CLI · Code generators · Web viewer · Scripts · Packaging
-L3 — Governance        Branch strategy · Release process · SBOM · CODEOWNERS · PR templates · MIT licensing
+L3 — Governance        Branch strategy · Release process · SBOM · CODEOWNERS · PR templates · Apache 2.0 licensing
 ```
 
 ### Repositories
@@ -95,7 +95,7 @@ Tracking all deliverables via GitHub Projects:
 | 4 | [Catalog Ecosystem](https://github.com/orgs/technehub-labs/projects/4) | All L1 reference catalogs |
 | 5 | [Developer Tooling](https://github.com/orgs/technehub-labs/projects/5) | CLI, scripts, code-gen, web viewer |
 | 6 | [Web Viewer & Packaging](https://github.com/orgs/technehub-labs/projects/6) | Docker, npm, PyPI packaging + GitHub Pages |
-| 7 | [Governance & Standards](https://github.com/orgs/technehub-labs/projects/7) | Contributing, PR templates, branch protection, SBOM, MIT |
+| 7 | [Governance & Standards](https://github.com/orgs/technehub-labs/projects/7) | Contributing, PR templates, branch protection, SBOM, Apache 2.0 |
 
 *(Project #2 — the original DEA Roadmap — is now closed.)*
 
@@ -130,8 +130,8 @@ See [`CONTRIBUTING.md`](https://github.com/technehub-labs/dea-metamodel/blob/mai
 
 ## License
 
-All TechNeHub Labs repositories are MIT licensed unless otherwise noted.
+All TechNeHub Labs repositories are licensed under the Apache License 2.0 unless otherwise noted.
 
 ```
-MIT License — see individual repo LICENSE files
+Apache License 2.0 — see individual repo LICENSE files
 ```
