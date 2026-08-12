@@ -1,0 +1,29 @@
+name: repo-drift-check
+
+# Nightly drift check: verifies the repositories table in profile/README.md
+# against the live org repo list. Opens/updates/closes a tracking issue
+# (label: readme-drift) — it never edits the README itself.
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # 06:00 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Check README table drift
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/check_repo_drift.py
