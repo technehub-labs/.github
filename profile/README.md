@@ -43,6 +43,7 @@ The programme so far, and the reasoning embedded in the repositories:
 | CR-003 Normalization | Relationship state on entities always drifted. | Entities carry no relationship state; relationship instances are authoritative. |
 | CR-004 Core Ontology | Frameworks (DMM, ECF, ArchiMate) were leaking into the base vocabulary. | 18-anchor Core + 10 profiles; profiles extend, never redefine. |
 | CR-005 Assessment & Measurement | `capability.maturity = 3` conflates what the enterprise *is* with how it is *assessed*. | A separate assessment layer — frameworks own maturity; results carry evidence, confidence and provenance; gaps connect to Change. DMMv5 plugs in as a profile, versioned independently. |
+| CR-006 Temporal & Lifecycle | "Exists" vs "existed / planned / being replaced / actually retired" collapsed into one static catalogue entry. | Architecture as time-dependent state — five clocks, lifecycle states/events, Baseline/Current/Target/Transition/Scenario states, snapshots, deltas, version chains. Planned ≠ actual; history never overwritten. |
 
 ```mermaid
 graph LR
@@ -51,12 +52,14 @@ graph LR
         PROF["10 domain profiles"]
         ASS["Assessment layer (CR-5)<br/>framework · criterion · measure<br/>result · evidence · gap"]
         DMM["DMMv5 (profile)"]
+        LFC["Lifecycle layer (CR-6)<br/>clocks · states · transitions<br/>snapshots · deltas · versions"]
     end
     T2["T2 — reference catalogs"] --> T0T1
     T3["T3 — tooling & viewers"] --> T0T1
     PROF --> CORE
     DMM -. implements .-> ASS
     ASS -. assesses .-> CORE
+    LFC -. temporal bounds .-> CORE
 ```
 
 The defining loop this enables: **Describe → Assess → Identify Gap → Decide → Transform →
