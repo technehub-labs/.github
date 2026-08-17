@@ -45,6 +45,7 @@ The programme so far, and the reasoning embedded in the repositories:
 | CR-005 Assessment & Measurement | `capability.maturity = 3` conflates what the enterprise *is* with how it is *assessed*. | A separate assessment layer — frameworks own maturity; results carry evidence, confidence and provenance; gaps connect to Change. DMMv5 plugs in as a profile, versioned independently. |
 | CR-006 Temporal & Lifecycle | "Exists" vs "existed / planned / being replaced / actually retired" collapsed into one static catalogue entry. | Architecture as time-dependent state — five clocks, lifecycle states/events, Baseline/Current/Target/Transition/Scenario states, snapshots, deltas, version chains. Planned ≠ actual; history never overwritten. |
 | CR-007 Governance & Agentic | The graph knew *what/when/how mature* but not *why, who may decide, under what constraints and evidence* — "agentic EA" was becoming an agent inventory. | The causal loop: Intent → Objective → Policy → Decision → Action → Change → Outcome → Evidence → reassessment. Authority ≠ capability; autonomy not a boolean; agents are participants, not the center. |
+| CR-008 Semantic Specification | A rich metamodel is not a standard — two independent implementations could reach different conclusions about the same model. | **OpenDEA 1.0** — frozen Core, canonical vocabulary, envelope schema, reference validator, golden/negative model contract, conformance levels 0–5, generated documentation. Independently implementable. |
 
 ```mermaid
 graph LR
