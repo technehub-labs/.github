@@ -30,6 +30,38 @@ T3 — Tooling            CLI · Code generators · Web viewer · Scripts · Pac
 Governance (cross-cutting)  Branch strategy · Release process · SBOM · CODEOWNERS · PR templates · Apache 2.0
 ```
 
+### Why the metamodel is shaped this way
+
+Every structural decision in the DEA assets traces to a numbered Change Request in
+[`dea-metamodel/change-requests/`](https://github.com/technehub-labs/dea-metamodel/tree/main/change-requests).
+The programme so far, and the reasoning embedded in the repositories:
+
+| CR | Rationale | What it produced |
+|---|---|---|
+| CR-001 Canonical Model | Scattered copies of the model made every consumer guess which was true. | One normative source; all schemas, DBs, graphs and docs are derived and drift-tested. |
+| CR-002 Relationship Semantics | Untyped relationships made the graph ambiguous. | Typed, directed, inverse-aware relationship ontology. |
+| CR-003 Normalization | Relationship state on entities always drifted. | Entities carry no relationship state; relationship instances are authoritative. |
+| CR-004 Core Ontology | Frameworks (DMM, ECF, ArchiMate) were leaking into the base vocabulary. | 18-anchor Core + 10 profiles; profiles extend, never redefine. |
+| CR-005 Assessment & Measurement | `capability.maturity = 3` conflates what the enterprise *is* with how it is *assessed*. | A separate assessment layer — frameworks own maturity; results carry evidence, confidence and provenance; gaps connect to Change. DMMv5 plugs in as a profile, versioned independently. |
+
+```mermaid
+graph LR
+    subgraph T0T1["T0/T1 — semantic foundation"]
+        CORE["OpenDEA Core<br/>18 anchors"]
+        PROF["10 domain profiles"]
+        ASS["Assessment layer (CR-5)<br/>framework · criterion · measure<br/>result · evidence · gap"]
+        DMM["DMMv5 (profile)"]
+    end
+    T2["T2 — reference catalogs"] --> T0T1
+    T3["T3 — tooling & viewers"] --> T0T1
+    PROF --> CORE
+    DMM -. implements .-> ASS
+    ASS -. assesses .-> CORE
+```
+
+The defining loop this enables: **Describe → Assess → Identify Gap → Decide → Transform →
+Measure → Reassess** — architecture stops being merely descriptive.
+
 ### Repositories
 
 <!-- REPO-TABLE:START — maintained manually; drift-checked nightly by .github/workflows/repo-drift-check.yml -->
