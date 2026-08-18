@@ -53,7 +53,7 @@ graph LR
         CORE["OpenDEA Core<br/>18 anchors"]
         PROF["10 domain profiles"]
         ASS["Assessment layer (CR-5)<br/>framework · criterion · measure<br/>result · evidence · gap"]
-        DMM["DMMv5 (profile)"]
+        DMM["DMM (profile)"]
         LFC["Lifecycle layer (CR-6)<br/>clocks · states · transitions<br/>snapshots · deltas · versions"]
         GOV["Governance + agentic (CR-7)<br/>intent · policy · authority<br/>decision · agent · oversight"]
     end
