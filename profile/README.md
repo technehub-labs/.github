@@ -1,6 +1,6 @@
 # TechNeHub Labs
 
-> **Digital Enterprise Architecture — open reference framework for enterprise architects, solutions architects, and technology leaders.**
+> **Open Digital Enterprise Architecture Model (OpenDEAM): An open reference framework for modernizing enterprise architecture and defining a digital ecosystem enterprise architecture, targeting enterprise architects, solutions architects, and technology leaders.**
 
 [![org](https://img.shields.io/badge/TechNeHub%20Labs-DEA-0088CC?style=flat-square&logo=github)](https://github.com/technehub-labs)
 [![Stage: Alpha](https://img.shields.io/badge/Stage-Alpha-FF6B35?style=flat-square)](https://github.com/technehub-labs/dea-metaframework)
@@ -10,15 +10,15 @@
 
 ## What is TechNeHub Labs?
 
-TechNeHub Labs is an open-source, vendor-neutral reference framework for Digital Enterprise Architecture (DEA). It provides structured definitions, reusable patterns, and tooling to help architects model, govern, and evolve enterprise technology landscapes.
+TechNeHub Labs is non-profit open-source initiative, approaching the increasingly complex landscape of systems realization with a vendor-neutral reference framework for Digital Business Ecosystem Architecture (DBEA) and Digital Enterprise Architecture (DEA). It provides concepts with structured, definitions, reusable patterns, and tooling as OpenDEAM to help enterprise architects, information engineering architects, systems architects, information/communications technology architects, and operations architects to model, govern, and evolve enterprise business landscapes.
 
-The framework is built in layers — from a shared metamodel that defines the core concepts, through curated reference catalogs, to developer tooling and governance policies.
+The framework is built in layers, from a shared metamodel that defines the core concepts, grounded concepts framework through curated reference catalogs, to developer tooling and governance policies.
 
 ---
 
-## The DEA Framework
+## The OpenDEAM Framework
 
-The organisation is arranged in **repository tiers** (T0–T3 — distinct from OpenDEAM
+The organisation of OpenDEA (not the model) is arranged in **repository tiers** (T0–T3 — distinct from OpenDEAM
 *architecture layers* L1–L5, which are defined only in `dea-architecture-framework`):
 
 ```
