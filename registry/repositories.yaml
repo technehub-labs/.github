@@ -1,0 +1,774 @@
+# TechNeHub Labs Portfolio Registry
+# Established by CR-TNH-README-03 (implements CR-TNH-README-01).
+#
+# Authority boundary: GitHub is authoritative for repository EXISTENCE.
+# This registry is authoritative for portfolio CLASSIFICATION and PRESENTATION
+# metadata (family, lifecycle, role, canonical status, relationships, featured).
+#
+# Maintenance: edit records here; run scripts/validate_registry.py to check;
+# run scripts/generate_portfolio.py to regenerate portfolio pages. Nightly CI
+# (portfolio-check.yml) validates against the live organisation.
+
+version: 1
+organization: technehub-labs
+
+# Vocabularies (CR-TNH-README-02)
+families: [foundation, concepts, catalogs, assessment, tooling, applications, governance, archive]
+lifecycle: [proposed, experimental, active, stable, deprecated, archived]
+canonical_values: [canonical, supporting, reference, experimental, historical]
+
+
+# Family presentation metadata (CR-TNH-README-02 purposes; CR-TNH-README-04 pages)
+family_details:
+  foundation:
+    title: Foundation
+    purpose: "Authoritative architectural, conceptual, semantic and metamodel foundations."
+    page: portfolio/foundation.md
+  concepts:
+    title: Concepts
+    purpose: "Conceptual and exploratory models representing domains, patterns and emerging areas."
+    page: portfolio/concepts.md
+  catalogs:
+    title: Reference Catalogs
+    purpose: "Governed reference catalogs instantiated from and aligned with the canonical model."
+    page: portfolio/catalogs.md
+  assessment:
+    title: Assessment
+    purpose: "Assessment models, assessment mechanisms, measurement and evidence assets."
+    page: portfolio/assessment.md
+  tooling:
+    title: Tooling
+    purpose: "Software supporting modeling, validation, generation, transformation, visualization and consumption."
+    page: portfolio/tooling.md
+  applications:
+    title: Applications
+    purpose: "Demonstrations and practical realizations of the architecture."
+    page: portfolio/applications.md
+  governance:
+    title: Governance
+    purpose: "Governance, lifecycle, contribution, standards and organizational assets."
+    page: portfolio/governance.md
+  archive:
+    title: Archive
+    purpose: "Superseded, deprecated or retired repositories retained for historical purposes."
+    page: portfolio/archive.md
+
+repositories:
+  - name: dea-architecture-framework
+    family: foundation
+    status: active
+    role: Architecture Framework
+    canonical: canonical
+    visibility: public
+    featured: true
+    description: "OpenDEAM — Open Digital Enterprise Architecture Model. Root authority for DEA architecture layers, building blocks, entity allocation, and relationships."
+
+  - name: dea-concepts-model
+    family: foundation
+    status: active
+    role: Concepts Model
+    canonical: canonical
+    visibility: public
+    featured: true
+    description: OpenDEA Concepts Model — canonical conceptual layer between the DEA Metaframework (ECF) and the DEA Metamodel (CR-CM-001)
+    depends_on: [dea-metaframework]
+
+  - name: dea-metaframework
+    family: foundation
+    status: active
+    role: Metaframework
+    canonical: canonical
+    visibility: public
+    featured: true
+    description: "Enterprise Concept Framework, the 7×7 axiom-derived matrix that the DEA metamodel and catalogs instantiate."
+    depends_on: [dea-architecture-framework]
+
+  - name: dea-metamodel
+    family: foundation
+    status: stable
+    role: Metamodel
+    canonical: canonical
+    visibility: public
+    featured: true
+    description: "Digital Enterprise Architecture Metamodel: canonical entity definitions, relationships, and schemas for all DEA catalog repositories."
+    depends_on: [dea-concepts-model]
+
+  - name: dea-ontology
+    family: foundation
+    status: active
+    role: Ontology
+    canonical: canonical
+    visibility: public
+    description: "Enterprise Ontology — canonical grounding repository for formal OWL/RDF ontology practice (upper-ontology conventions, ontology-engineering patterns, ontology lifecycle) and the means to author sector-, industry-, and sub-sector-specific Enterprise Ontologies (e.g. Enterprise Business Ontology, Enterprise Technology Ontology). (CR-EO-01)"
+    depends_on: [dea-metamodel]
+
+  - name: dea-semantic-architecture
+    family: foundation
+    status: active
+    role: Semantic Architecture
+    canonical: canonical
+    visibility: public
+    description: "Enterprise Semantic Architecture — canonical grounding repository for how enterprises organise meaning (semantic layers, vocabularies, concept graphs, knowledge-graph architectures) and the means to author sector-, industry-, and sub-sector-specific Semantic Architecture assets. (CR-ESA-01)"
+    depends_on: [dea-metamodel]
+
+  - name: agentic-workflows
+    family: concepts
+    status: experimental
+    role: Agentic Workflows
+    canonical: reference
+    visibility: private
+    description: "Agent-task concept repository for the Agentic Workflows pattern — composes references, tools, and artifacts for agent roles, tools, prompts, orchestration patterns, and evaluation harnesses."
+    depends_on: [dea-metamodel]
+
+  - name: autonomous-enterprise
+    family: concepts
+    status: active
+    role: Autonomous Enterprise
+    canonical: reference
+    visibility: public
+    description: "Umbrella concept repository for the Autonomous Enterprise pattern — composes references, tools, and artifacts on top of the DEA catalogs and the four sibling concept repositories."
+    depends_on: [dea-metamodel]
+
+  - name: autonomous-flow
+    family: concepts
+    status: experimental
+    role: Autonomous Flow
+    canonical: reference
+    visibility: private
+    description: "Cross-system flow concept repository for the Autonomous Flow pattern — composes references, tools, and artifacts for event streaming, data pipelines, change data capture, and event-driven integration."
+    depends_on: [dea-metamodel]
+
+  - name: autonomous-networks
+    family: concepts
+    status: experimental
+    role: Autonomous Networks
+    canonical: reference
+    visibility: private
+    description: "Network-layer concept repository for the Autonomous Networks pattern — composes references, tools, and artifacts for intent-based networking, service mesh, zero-trust, traffic engineering, and self-healing transport."
+    depends_on: [dea-metamodel]
+
+  - name: autonomous-operations
+    family: concepts
+    status: experimental
+    role: Autonomous Operations
+    canonical: reference
+    visibility: private
+    description: "Ops-layer concept repository for the Autonomous Operations pattern — composes references, tools, and artifacts for automating incident response, change, observability, capacity, reliability, and compliance."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-actors
+    family: catalogs
+    status: experimental
+    role: Actor
+    canonical: experimental
+    visibility: private
+    entity: Actor
+    layer: L3
+    class_alias: AC
+    domain: business-operating
+    description: "Actors catalog — DEA L1 catalog repository for performers of enterprise processes (humans, teams, systems, AI agents)."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-agent-foundry
+    family: catalogs
+    status: experimental
+    role: Digital Identity — Bot (Agent) Subtype
+    canonical: experimental
+    visibility: private
+    entity: Digital Identity — Bot (Agent) Subtype
+    layer: L3
+    class_alias: DI
+    domain: business-operating
+    description: "Agent Foundry — catalogue of autonomous agent patterns, agent platform specifications, multi-agent orchestration frameworks, and operational governance policies."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-ai-ml-models
+    family: catalogs
+    status: active
+    role: AI/ML Model
+    canonical: canonical
+    visibility: public
+    entity: AI/ML Model
+    layer: L4
+    class_alias: AIM
+    domain: digital-intelligence
+    description: AI / ML Model — trained model that augments or automates a system function.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-api-contracts
+    family: catalogs
+    status: active
+    role: API
+    canonical: canonical
+    visibility: public
+    entity: API
+    layer: L5
+    class_alias: API
+    domain: technology-execution
+    description: API / Service Contract — versioned contract exposing a system function.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-application-components
+    family: catalogs
+    status: active
+    role: Application Component
+    canonical: canonical
+    visibility: public
+    entity: Application Component
+    layer: L5
+    class_alias: APC
+    domain: technology-execution
+    description: Application Component — deployable unit hosting system functions.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-blueprints
+    family: catalogs
+    status: active
+    role: Blueprint
+    canonical: canonical
+    visibility: public
+    entity: Blueprint
+    layer: L2
+    class_alias: BLU
+    domain: strategy-governance
+    description: "DEA catalog: Blueprint (BLU) — composed target-state designs from Architecture Patterns. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-reference-models)"
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-business-capabilities
+    family: catalogs
+    status: active
+    role: Business Capability
+    canonical: canonical
+    visibility: public
+    entity: Business Capability
+    layer: L3
+    class_alias: CAP
+    domain: business-operating
+    featured: true
+    description: "Business Capability, the ability to deliver value, mapped to ECF coordinates."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-business-objects
+    family: catalogs
+    status: experimental
+    role: Business Object
+    canonical: experimental
+    visibility: private
+    entity: Business Object
+    layer: L3
+    class_alias: BO
+    domain: business-operating
+    description: "L1 reference catalog for Business Objects (BO) — the atoms of the ECF matrix. Each entry is a real-world entity of interest to the business, classified by (ecf_domain, ecf_stage) coordinates plus a free-form object_class label."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-change-initiatives
+    family: catalogs
+    status: active
+    role: Change Initiative
+    canonical: canonical
+    visibility: public
+    entity: Change Initiative
+    layer: L3
+    class_alias: CHI
+    domain: business-operating
+    description: "A deliberate effort to shift Skills, Roles, or culture within an Organizational Unit, typically funded by an Investment Initiative."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-concepts
+    family: catalogs
+    status: experimental
+    role: Concept
+    canonical: experimental
+    visibility: private
+    entity: Concept
+    class_alias: CON
+    description: "DEA catalog: Concept (CON) — semantic-dimension concept graph. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-glossary, absorbs dea-catalog-taxonomy)"
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-controls
+    family: catalogs
+    status: active
+    role: Control
+    canonical: canonical
+    visibility: public
+    entity: Control
+    layer: L2
+    class_alias: CTL
+    domain: strategy-governance
+    description: "A mechanism (process, technical, or organizational) that mitigates a Risk or enforces a Regulation."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-data-entities
+    family: catalogs
+    status: active
+    role: Data Entity
+    canonical: canonical
+    visibility: public
+    entity: Data Entity
+    layer: L4
+    class_alias: DE
+    domain: digital-intelligence
+    description: "Data Entity — typed, persisted structure used by application components."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-data-products
+    family: catalogs
+    status: active
+    role: Data Product
+    canonical: canonical
+    visibility: public
+    entity: Data Product
+    layer: L4
+    class_alias: DP
+    domain: digital-intelligence
+    description: "Data Product — domain-owned, SLA-backed dataset exposed as a product."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-digital-business-service-factory
+    family: catalogs
+    status: experimental
+    role: Business Service
+    canonical: experimental
+    visibility: private
+    entity: Business Service
+    layer: L3
+    class_alias: BS
+    domain: business-operating
+    description: "Digital Business Service Factory — catalogue of enterprise business service definitions, capabilities, and their decomposition into solution components, with governance contracts."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-digital-identities
+    family: catalogs
+    status: active
+    role: Digital Identity
+    canonical: canonical
+    visibility: public
+    entity: Digital Identity
+    layer: L4
+    class_alias: DI
+    domain: digital-intelligence
+    description: "Digital Identity — Customer, Partner, or Bot representation in the ecosystem."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-ecosystem-platforms
+    family: catalogs
+    status: active
+    role: Ecosystem Platform
+    canonical: canonical
+    visibility: public
+    entity: Ecosystem Platform
+    layer: L1
+    class_alias: EP
+    domain: ecosystem-value
+    description: "A standing multi-sided structure the enterprise hosts for repeated exchange among many ecosystem actors (marketplace, partner API program, developer portal)."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-event-streams
+    family: catalogs
+    status: active
+    role: Event
+    canonical: canonical
+    visibility: public
+    entity: Event
+    layer: L4
+    class_alias: EVT
+    domain: digital-intelligence
+    description: Event / Event Stream — discrete state changes with topic and schema.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-experiments
+    family: catalogs
+    status: active
+    role: Experiment
+    canonical: canonical
+    visibility: public
+    entity: Experiment
+    layer: L2
+    class_alias: EXP
+    domain: strategy-governance
+    description: "A bounded, time-boxed test of a Signal's relevance to the enterprise before committing investment."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-guardrails
+    family: catalogs
+    status: experimental
+    role: Guardrail
+    canonical: experimental
+    visibility: private
+    entity: Guardrail
+    layer: L2
+    class_alias: GRD
+    domain: strategy-governance
+    description: "DEA catalog: Guardrail (GRD) — enforceable constraints with enforcement maturity. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-standards)"
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-information-classes
+    family: catalogs
+    status: active
+    role: Information Class
+    canonical: canonical
+    visibility: public
+    entity: Information Class
+    layer: L4
+    class_alias: IC
+    domain: digital-intelligence
+    description: Information Class — classification of data entities by sensitivity.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-investment-initiatives
+    family: catalogs
+    status: active
+    role: Investment Initiative
+    canonical: canonical
+    visibility: public
+    entity: Investment Initiative
+    layer: L2
+    class_alias: II
+    domain: strategy-governance
+    description: Investment Initiative — funded programme that realises strategic objectives.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-journey-touchpoints
+    family: catalogs
+    status: active
+    role: Journey Touchpoint
+    canonical: canonical
+    visibility: public
+    entity: Journey Touchpoint
+    layer: L1
+    class_alias: JT
+    domain: ecosystem-value
+    description: Journey Touchpoint — point of interaction on a customer or user journey.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-metrics
+    family: catalogs
+    status: active
+    role: Performance Metric
+    canonical: canonical
+    visibility: public
+    entity: Performance Metric
+    class_alias: MTR
+    description: Assessment models and tools for evaluating business ecosystem health and maturity
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-model-deployments
+    family: catalogs
+    status: active
+    role: Model Deployment
+    canonical: canonical
+    visibility: public
+    entity: Model Deployment
+    layer: L4
+    class_alias: MDP
+    domain: digital-intelligence
+    description: "A running instance of an AI/ML Model, hosted on an Application Component, with its own version, monitoring state, and health."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-ontologies
+    family: catalogs
+    status: experimental
+    role: Ontologies
+    canonical: experimental
+    visibility: private
+    description: Domain OWL/RDF ontologies — fintech and healthcare. DEA L1 catalog repository.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-organizational-units
+    family: catalogs
+    status: experimental
+    role: Organizational Unit
+    canonical: experimental
+    visibility: private
+    entity: Organizational Unit
+    layer: L3
+    class_alias: OU
+    domain: business-operating
+    description: "L1 reference catalog for Organizational Units (OU) — accountability containers that own capabilities, run processes, and are custodians for business objects. Classified by (ou_type, ou_scope, ou_lifecycle) structural axes plus optional ECF coordinates."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-patterns
+    family: catalogs
+    status: active
+    role: Architecture Pattern
+    canonical: canonical
+    visibility: public
+    entity: Architecture Pattern
+    layer: L2
+    class_alias: AP
+    domain: strategy-governance
+    description: Reusable architecture patterns for enterprise digital platforms
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-platform-services
+    family: catalogs
+    status: active
+    role: Platform Service
+    canonical: canonical
+    visibility: public
+    entity: Platform Service
+    layer: L5
+    class_alias: PS
+    domain: technology-execution
+    description: "Platform Service — compute, database, or network foundation service."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-processes
+    family: catalogs
+    status: active
+    role: Business Process
+    canonical: canonical
+    visibility: public
+    entity: Business Process
+    layer: L3
+    class_alias: BP
+    domain: business-operating
+    description: "Processes catalog — DEA L1 catalog repository for business and operational processes, classified by intent (operational/support/management) and audience (ECF domain)."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-reference-architecture
+    family: catalogs
+    status: experimental
+    role: Reference Architecture
+    canonical: experimental
+    visibility: private
+    description: Digital Enterprise Reference Architecture — canonical reference model assembling all DEA framework layers into a practical delivery blueprint.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-regulations
+    family: catalogs
+    status: active
+    role: Regulation
+    canonical: canonical
+    visibility: public
+    entity: Regulation
+    layer: L2
+    class_alias: REG
+    domain: strategy-governance
+    description: "An externally imposed obligation (law, industry standard with force, contractual mandate) the enterprise must comply with."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-risk-register
+    family: catalogs
+    status: active
+    role: Risk
+    canonical: canonical
+    visibility: public
+    entity: Risk
+    layer: L2
+    class_alias: RSK
+    domain: strategy-governance
+    description: "A condition or event that threatens the enterprise's ability to persist or to realize a capability/objective."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-roles
+    family: catalogs
+    status: active
+    role: Role
+    canonical: canonical
+    visibility: public
+    entity: Role
+    layer: L3
+    class_alias: ROL
+    domain: business-operating
+    description: A defined set of required Skills and responsibilities that an Actor fulfills within an Organizational Unit.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-signals
+    family: catalogs
+    status: active
+    role: Signal
+    canonical: canonical
+    visibility: public
+    entity: Signal
+    layer: L2
+    class_alias: SIG
+    domain: strategy-governance
+    description: "A weak or early indicator of environmental change (market, technology, regulatory, competitive) worth tracking before it forces adaptation."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-skills
+    family: catalogs
+    status: active
+    role: Skill
+    canonical: canonical
+    visibility: public
+    entity: Skill
+    layer: L3
+    class_alias: SKL
+    domain: business-operating
+    description: A capability an individual Actor possesses or must develop.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-solution-hub
+    family: catalogs
+    status: experimental
+    role: Solution Hub
+    canonical: experimental
+    visibility: private
+    description: "Solution Hub — catalogue of solution archetypes, delivery templates, and implementation accelerators for recurring enterprise technology challenges."
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-stakeholders
+    family: catalogs
+    status: experimental
+    role: Stakeholder
+    canonical: experimental
+    visibility: private
+    entity: Stakeholder
+    layer: L1
+    class_alias: SH
+    domain: ecosystem-value
+    description: Stakeholders catalog — DEA L1 catalog repository for external/affected parties whose relationship with the enterprise is engaged in or affected by enterprise processes.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-strategic-objectives
+    family: catalogs
+    status: active
+    role: Strategic Objective
+    canonical: canonical
+    visibility: public
+    entity: Strategic Objective
+    layer: L2
+    class_alias: SO
+    domain: strategy-governance
+    description: Strategic Objective — high-level outcomes the enterprise seeks to achieve.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-system-functions
+    family: catalogs
+    status: active
+    role: System Function
+    canonical: canonical
+    visibility: public
+    entity: System Function
+    layer: L5
+    class_alias: SF
+    domain: technology-execution
+    description: System Function — capability that automates a business process.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-technology-radar
+    family: catalogs
+    status: active
+    role: Technology Radar Entry
+    canonical: canonical
+    visibility: public
+    entity: Technology Radar Entry
+    layer: L2
+    class_alias: TRE
+    domain: strategy-governance
+    description: An emerging technology or technique being tracked (assess/trial/adopt/hold) prior to becoming a governed L5 Technology.
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-tenets
+    family: catalogs
+    status: experimental
+    role: Tenet
+    canonical: experimental
+    visibility: private
+    entity: Tenet
+    layer: L2
+    class_alias: TNT
+    domain: strategy-governance
+    description: "DEA catalog: Tenet (TNT) — non-binding beliefs that inform Guardrails. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-principles)"
+    depends_on: [dea-metamodel]
+
+  - name: dea-catalog-value-streams
+    family: catalogs
+    status: active
+    role: Value Stream
+    canonical: canonical
+    visibility: public
+    entity: Value Stream
+    layer: L3
+    class_alias: VS
+    domain: business-operating
+    description: Value Stream — end-to-end collection of value-creating activities.
+    depends_on: [dea-metamodel]
+
+  - name: dea-cli
+    family: tooling
+    status: experimental
+    role: CLI
+    canonical: supporting
+    visibility: private
+    description: "Digital Enterprise Architecture CLI — query, validate, and generate viewpoints from DEA catalogs."
+    depends_on: [dea-metamodel]
+
+  - name: dea-code-gen
+    family: tooling
+    status: experimental
+    role: Code Generation
+    canonical: supporting
+    visibility: private
+    description: "Code generation from DEA catalog entries — ADR generator, component spec generator, API contract generator."
+    depends_on: [dea-metamodel]
+
+  - name: dea-scripts
+    family: tooling
+    status: active
+    role: Scripts
+    canonical: supporting
+    visibility: public
+    description: Tools and playbooks for digital transformation initiatives
+    depends_on: [dea-metamodel]
+
+  - name: dea-web-viewer
+    family: tooling
+    status: active
+    role: Web Viewer
+    canonical: supporting
+    visibility: public
+    featured: true
+    description: Visual canvas and tooling for enterprise architecture modeling
+    depends_on: [dea-metamodel]
+
+  - name: .github
+    family: governance
+    status: active
+    role: Organization Profile
+    canonical: supporting
+    visibility: public
+    description: TechNeHub Labs organisation profile
+
+  - name: technehub-labs.github.io
+    family: governance
+    status: active
+    role: Site
+    canonical: supporting
+    visibility: public
+    description: "Techne Research & Dev. Labs"
+
+  - name: agentic-enterprise-innovation
+    family: archive
+    status: archived
+    role: Agentic Enterprise Innovation (superseded)
+    canonical: historical
+    visibility: public
+    description: AI agent-driven approaches to enterprise innovation and automation
+
+  - name: dea-catalog-taxonomy
+    family: archive
+    status: archived
+    role: "Taxonomy Catalog (merged into Concept, ADR-0004 D2)"
+    canonical: historical
+    visibility: private
+    description: "ARCHIVED (ADR-0004 D2): Taxonomy Node merged into Concept — use dea-catalog-concepts"
+    depends_on: [dea-metamodel]
+
+  - name: ea-foundation
+    family: archive
+    status: archived
+    role: EA Foundation (superseded)
+    canonical: historical
+    visibility: public
+    description: "Enterprise Architecture foundation: models, principles, and reference frameworks"
+
+  - name: ecosystem-architecture
+    family: archive
+    status: archived
+    role: Ecosystem Architecture (superseded)
+    canonical: historical
+    visibility: public
+    description: Architecture framework for business and technology ecosystems
