@@ -1,229 +1,94 @@
 # TechNeHub Labs
 
-> **Open Digital Enterprise Architecture Model (OpenDEAM): An open reference framework for modernizing enterprise architecture and defining a digital ecosystem enterprise architecture, targeting enterprise architects, solutions architects, and technology leaders.**
+> **Open Digital Enterprise Architecture Model (OpenDEAM): an open reference framework for modernizing enterprise architecture and defining a digital ecosystem enterprise architecture, targeting enterprise architects, solutions architects, and technology leaders.**
 
 [![org](https://img.shields.io/badge/TechNeHub%20Labs-DEA-0088CC?style=flat-square&logo=github)](https://github.com/technehub-labs)
 [![Stage: Alpha](https://img.shields.io/badge/Stage-Alpha-FF6B35?style=flat-square)](https://github.com/technehub-labs/dea-metaframework)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](https://github.com/technehub-labs/.github/blob/main/LICENSE)
 
 ---
 
-## What is TechNeHub Labs?
+## TechNeHub Labs
 
-TechNeHub Labs is non-profit open-source initiative, approaching the increasingly complex landscape of systems realization with a vendor-neutral reference framework for Digital Business Ecosystem Architecture (DBEA) and Digital Enterprise Architecture (DEA). It provides concepts with structured, definitions, reusable patterns, and tooling as OpenDEAM to help enterprise architects, information engineering architects, systems architects, information/communications technology architects, and operations architects to model, govern, and evolve enterprise business landscapes.
+TechNeHub Labs is a non-profit open-source initiative approaching the increasingly complex landscape of systems realization with a vendor-neutral reference framework for Digital Business Ecosystem Architecture (DBEA) and Digital Enterprise Architecture (DEA). It provides concepts with structured definitions, reusable patterns, and tooling as OpenDEAM, helping enterprise architects, information engineering architects, systems architects, information and communications technology architects, and operations architects to model, govern, and evolve enterprise business landscapes.
 
-The framework is built in layers, from a shared metamodel that defines the core concepts, grounded concepts framework through curated reference catalogs, to developer tooling and governance policies.
+## OpenDEAM
 
----
+OpenDEAM provides an open, model-driven foundation for representing enterprise architecture: capabilities, processes, information, technology, value, assessment, and related enterprise concerns. The work is organized as a set of independently governed but interoperable repositories.
 
-## The OpenDEAM Framework
+The portfolio is arranged in repository tiers (T0 root model, T1 metamodel, T2 reference catalogs, T3 tooling, plus cross-cutting governance). These tiers are distinct from the OpenDEAM architecture layers L1 to L5, which are defined only in the [architecture framework](https://github.com/technehub-labs/dea-architecture-framework).
 
-The organisation of OpenDEA (not the model) is arranged in **repository tiers** (T0–T3 — distinct from OpenDEAM
-*architecture layers* L1–L5, which are defined only in `dea-architecture-framework`):
+## Start Here
 
-```
-T0 — Root model         OpenDEAM: architecture layers L1–L5, building blocks, entity allocation, relationships
-T1 — Metamodel          Machine-readable canonical schemas: JSON Schema, TTL ontology, SQLite, Pydantic, TypeScript
-T2 — Reference Catalogs One repository per first-level entity (40+ catalogs) — Tenets · Guardrails · Patterns ·
-                        Concepts · Blueprints · Ontologies · Metrics · and the L1–L5 entity catalogs
-T3 — Tooling            CLI · Code generators · Web viewer · Scripts · Packaging
-Governance (cross-cutting)  Branch strategy · Release process · SBOM · CODEOWNERS · PR templates · Apache 2.0
-```
-
-### Why the metamodel is shaped this way
-
-Every structural decision in the DEA assets traces to a numbered Change Request in
-[`dea-metamodel/change-requests/`](https://github.com/technehub-labs/dea-metamodel/tree/main/change-requests).
-The programme so far, and the reasoning embedded in the repositories:
-
-| CR | Rationale | What it produced |
-|---|---|---|
-| CR-001 Canonical Model | Scattered copies of the model made every consumer guess which was true. | One normative source; all schemas, DBs, graphs and docs are derived and drift-tested. |
-| CR-002 Relationship Semantics | Untyped relationships made the graph ambiguous. | Typed, directed, inverse-aware relationship ontology. |
-| CR-003 Normalization | Relationship state on entities always drifted. | Entities carry no relationship state; relationship instances are authoritative. |
-| CR-004 Core Ontology | Frameworks (DMM, ECF, ArchiMate) were leaking into the base vocabulary. | 18-anchor Core + 10 profiles; profiles extend, never redefine. |
-| CR-005 Assessment & Measurement | `capability.maturity = 3` conflates what the enterprise *is* with how it is *assessed*. | A separate assessment layer — frameworks own maturity; results carry evidence, confidence and provenance; gaps connect to Change. DMMv5 plugs in as a profile, versioned independently. |
-| CR-006 Temporal & Lifecycle | "Exists" vs "existed / planned / being replaced / actually retired" collapsed into one static catalogue entry. | Architecture as time-dependent state — five clocks, lifecycle states/events, Baseline/Current/Target/Transition/Scenario states, snapshots, deltas, version chains. Planned ≠ actual; history never overwritten. |
-| CR-007 Governance & Agentic | The graph knew *what/when/how mature* but not *why, who may decide, under what constraints and evidence* — "agentic EA" was becoming an agent inventory. | The causal loop: Intent → Objective → Policy → Decision → Action → Change → Outcome → Evidence → reassessment. Authority ≠ capability; autonomy not a boolean; agents are participants, not the center. |
-| CR-008 Semantic Specification | A rich metamodel is not a standard — two independent implementations could reach different conclusions about the same model. | **OpenDEA 1.0** — frozen Core, canonical vocabulary, envelope schema, reference validator, golden/negative model contract, conformance levels 0–5, generated documentation. Independently implementable. |
-
-```mermaid
-graph LR
-    subgraph T0T1["T0/T1 — semantic foundation"]
-        CORE["OpenDEA Core<br/>18 anchors"]
-        PROF["10 domain profiles"]
-        ASS["Assessment layer (CR-5)<br/>framework · criterion · measure<br/>result · evidence · gap"]
-        DMM["DMM (profile)"]
-        LFC["Lifecycle layer (CR-6)<br/>clocks · states · transitions<br/>snapshots · deltas · versions"]
-        GOV["Governance + agentic (CR-7)<br/>intent · policy · authority<br/>decision · agent · oversight"]
-    end
-    T2["T2 — reference catalogs"] --> T0T1
-    T3["T3 — tooling & viewers"] --> T0T1
-    PROF --> CORE
-    DMM -. implements .-> ASS
-    ASS -. assesses .-> CORE
-    LFC -. temporal bounds .-> CORE
-    GOV -. governs .-> CORE
-```
-
-The defining loop this enables: **Describe → Assess → Identify Gap → Decide → Transform →
-Measure → Reassess** — architecture stops being merely descriptive.
-
-### Repositories
-
-<!-- REPO-TABLE:START — maintained manually; drift-checked nightly by .github/workflows/repo-drift-check.yml -->
-<!-- Conventions: private repositories carry "🔒" in the Group cell; archived repositories carry the word "archived". -->
-| Repo | Group | Description |
-|------|-------|-------------|
-| [`dea-architecture-framework`](https://github.com/technehub-labs/dea-architecture-framework) | Core | OpenDEAM — Open Digital Enterprise Architecture Model. Root authority for DEA architecture layers, building blocks, entity allocation, and relationships. |
-| [`dea-metaframework`](https://github.com/technehub-labs/dea-metaframework) | Core | Enterprise Concept Framework — the 7×7 axiom-derived matrix that the DEA metamodel and catalogs instantiate. |
-| [`dea-metamodel`](https://github.com/technehub-labs/dea-metamodel) | Core | Digital Enterprise Architecture Metamodel — canonical entity definitions, relationships, and schemas for all DEA catalog repositories. |
-| [`dea-concepts-model`](https://github.com/technehub-labs/dea-concepts-model) | Core | OpenDEA Concepts Model: canonical conceptual layer between the DEA Metaframework (ECF) and the DEA Metamodel (CR-CM-001). |
-| [`dea-ontology`](https://github.com/technehub-labs/dea-ontology) | Core | Enterprise Ontology: canonical grounding repository for formal OWL/RDF ontology practice and authoring of sector-specific Enterprise Ontologies (CR-EO-01). |
-| [`dea-semantic-architecture`](https://github.com/technehub-labs/dea-semantic-architecture) | Core | Enterprise Semantic Architecture: canonical grounding repository for how enterprises organise meaning (semantic layers, vocabularies, concept graphs, knowledge-graph architectures) (CR-ESA-01). |
-| [`agentic-workflows`](https://github.com/technehub-labs/agentic-workflows) | Concept 🔒 | Agent-task concept repository for the Agentic Workflows pattern — composes references, tools, and artifacts for agent roles, tools, prompts, orchestration patterns, and evaluation harnesses. |
-| [`autonomous-enterprise`](https://github.com/technehub-labs/autonomous-enterprise) | Concept | Umbrella concept repository for the Autonomous Enterprise pattern — composes references, tools, and artifacts on top of the DEA catalogs and the four sibling concept repositories. |
-| [`autonomous-flow`](https://github.com/technehub-labs/autonomous-flow) | Concept 🔒 | Cross-system flow concept repository for the Autonomous Flow pattern — composes references, tools, and artifacts for event streaming, data pipelines, change data capture, and event-driven integration. |
-| [`autonomous-networks`](https://github.com/technehub-labs/autonomous-networks) | Concept 🔒 | Network-layer concept repository for the Autonomous Networks pattern — composes references, tools, and artifacts for intent-based networking, service mesh, zero-trust, traffic engineering, and self-healing transport. |
-| [`autonomous-operations`](https://github.com/technehub-labs/autonomous-operations) | Concept 🔒 | Ops-layer concept repository for the Autonomous Operations pattern — composes references, tools, and artifacts for automating incident response, change, observability, capacity, reliability, and compliance. |
-| [`agentic-enterprise-innovation`](https://github.com/technehub-labs/agentic-enterprise-innovation) | Concept — archived | AI agent-driven approaches to enterprise innovation and automation |
-| [`ea-foundation`](https://github.com/technehub-labs/ea-foundation) | Concept — archived | Enterprise Architecture foundation: models, principles, and reference frameworks |
-| [`ecosystem-architecture`](https://github.com/technehub-labs/ecosystem-architecture) | Concept — archived | Architecture framework for business and technology ecosystems |
-| [`dea-catalog-actors`](https://github.com/technehub-labs/dea-catalog-actors) | Catalog 🔒 | Actors catalog — DEA L1 catalog repository for performers of enterprise processes (humans, teams, systems, AI agents). |
-| [`dea-catalog-agent-foundry`](https://github.com/technehub-labs/dea-catalog-agent-foundry) | Catalog 🔒 | Agent Foundry — catalogue of autonomous agent patterns, agent platform specifications, multi-agent orchestration frameworks, and operational governance policies. |
-| [`dea-catalog-ai-ml-models`](https://github.com/technehub-labs/dea-catalog-ai-ml-models) | Catalog | AI / ML Model — trained model that augments or automates a system function. |
-| [`dea-catalog-api-contracts`](https://github.com/technehub-labs/dea-catalog-api-contracts) | Catalog | API / Service Contract — versioned contract exposing a system function. |
-| [`dea-catalog-application-components`](https://github.com/technehub-labs/dea-catalog-application-components) | Catalog | Application Component — deployable unit hosting system functions. |
-| [`dea-catalog-blueprints`](https://github.com/technehub-labs/dea-catalog-blueprints) | Catalog | DEA catalog: Blueprint (BLU) — composed target-state designs from Architecture Patterns. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-reference-models) |
-| [`dea-catalog-business-capabilities`](https://github.com/technehub-labs/dea-catalog-business-capabilities) | Catalog | Business Capability — ability to deliver value, mapped to ECF coordinates. |
-| [`dea-catalog-business-objects`](https://github.com/technehub-labs/dea-catalog-business-objects) | Catalog 🔒 | L1 reference catalog for Business Objects (BO) — the atoms of the ECF matrix. Each entry is a real-world entity of interest to the business, classified by (ecf_domain, ecf_stage) coordinates plus a free-form object_class label. |
-| [`dea-catalog-change-initiatives`](https://github.com/technehub-labs/dea-catalog-change-initiatives) | Catalog | A deliberate effort to shift Skills, Roles, or culture within an Organizational Unit, typically funded by an Investment Initiative. |
-| [`dea-catalog-concepts`](https://github.com/technehub-labs/dea-catalog-concepts) | Catalog 🔒 | DEA catalog: Concept (CON) — semantic-dimension concept graph. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-glossary, absorbs dea-catalog-taxonomy) |
-| [`dea-catalog-controls`](https://github.com/technehub-labs/dea-catalog-controls) | Catalog | A mechanism (process, technical, or organizational) that mitigates a Risk or enforces a Regulation. |
-| [`dea-catalog-data-entities`](https://github.com/technehub-labs/dea-catalog-data-entities) | Catalog | Data Entity — typed, persisted structure used by application components. |
-| [`dea-catalog-data-products`](https://github.com/technehub-labs/dea-catalog-data-products) | Catalog | Data Product — domain-owned, SLA-backed dataset exposed as a product. |
-| [`dea-catalog-digital-business-service-factory`](https://github.com/technehub-labs/dea-catalog-digital-business-service-factory) | Catalog 🔒 | Digital Business Service Factory — catalogue of enterprise business service definitions, capabilities, and their decomposition into solution components, with governance contracts. |
-| [`dea-catalog-digital-identities`](https://github.com/technehub-labs/dea-catalog-digital-identities) | Catalog | Digital Identity — Customer, Partner, or Bot representation in the ecosystem. |
-| [`dea-catalog-ecosystem-platforms`](https://github.com/technehub-labs/dea-catalog-ecosystem-platforms) | Catalog | A standing multi-sided structure the enterprise hosts for repeated exchange among many ecosystem actors (marketplace, partner API program, developer portal). |
-| [`dea-catalog-event-streams`](https://github.com/technehub-labs/dea-catalog-event-streams) | Catalog | Event / Event Stream — discrete state changes with topic and schema. |
-| [`dea-catalog-experiments`](https://github.com/technehub-labs/dea-catalog-experiments) | Catalog | A bounded, time-boxed test of a Signal's relevance to the enterprise before committing investment. |
-| [`dea-catalog-guardrails`](https://github.com/technehub-labs/dea-catalog-guardrails) | Catalog 🔒 | DEA catalog: Guardrail (GRD) — enforceable constraints with enforcement maturity. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-standards) |
-| [`dea-catalog-information-classes`](https://github.com/technehub-labs/dea-catalog-information-classes) | Catalog | Information Class — classification of data entities by sensitivity. |
-| [`dea-catalog-investment-initiatives`](https://github.com/technehub-labs/dea-catalog-investment-initiatives) | Catalog | Investment Initiative — funded programme that realises strategic objectives. |
-| [`dea-catalog-journey-touchpoints`](https://github.com/technehub-labs/dea-catalog-journey-touchpoints) | Catalog | Journey Touchpoint — point of interaction on a customer or user journey. |
-| [`dea-catalog-metrics`](https://github.com/technehub-labs/dea-catalog-metrics) | Catalog | Assessment models and tools for evaluating business ecosystem health and maturity |
-| [`dea-catalog-model-deployments`](https://github.com/technehub-labs/dea-catalog-model-deployments) | Catalog | A running instance of an AI/ML Model, hosted on an Application Component, with its own version, monitoring state, and health. |
-| [`dea-catalog-ontologies`](https://github.com/technehub-labs/dea-catalog-ontologies) | Catalog 🔒 | Domain OWL/RDF ontologies — fintech and healthcare. DEA L1 catalog repository. |
-| [`dea-catalog-organizational-units`](https://github.com/technehub-labs/dea-catalog-organizational-units) | Catalog 🔒 | L1 reference catalog for Organizational Units (OU) — accountability containers that own capabilities, run processes, and are custodians for business objects. Classified by (ou_type, ou_scope, ou_lifecycle) structural axes plus optional ECF coordinates. |
-| [`dea-catalog-patterns`](https://github.com/technehub-labs/dea-catalog-patterns) | Catalog | Reusable architecture patterns for enterprise digital platforms |
-| [`dea-catalog-platform-services`](https://github.com/technehub-labs/dea-catalog-platform-services) | Catalog | Platform Service — compute, database, or network foundation service. |
-| [`dea-catalog-processes`](https://github.com/technehub-labs/dea-catalog-processes) | Catalog | Processes catalog — DEA L1 catalog repository for business and operational processes, classified by intent (operational/support/management) and audience (ECF domain). |
-| [`dea-catalog-reference-architecture`](https://github.com/technehub-labs/dea-catalog-reference-architecture) | Catalog 🔒 | Digital Enterprise Reference Architecture — canonical reference model assembling all DEA framework layers into a practical delivery blueprint. |
-| [`dea-catalog-regulations`](https://github.com/technehub-labs/dea-catalog-regulations) | Catalog | An externally imposed obligation (law, industry standard with force, contractual mandate) the enterprise must comply with. |
-| [`dea-catalog-risk-register`](https://github.com/technehub-labs/dea-catalog-risk-register) | Catalog | A condition or event that threatens the enterprise's ability to persist or to realize a capability/objective. |
-| [`dea-catalog-roles`](https://github.com/technehub-labs/dea-catalog-roles) | Catalog | A defined set of required Skills and responsibilities that an Actor fulfills within an Organizational Unit. |
-| [`dea-catalog-signals`](https://github.com/technehub-labs/dea-catalog-signals) | Catalog | A weak or early indicator of environmental change (market, technology, regulatory, competitive) worth tracking before it forces adaptation. |
-| [`dea-catalog-skills`](https://github.com/technehub-labs/dea-catalog-skills) | Catalog | A capability an individual Actor possesses or must develop. |
-| [`dea-catalog-solution-hub`](https://github.com/technehub-labs/dea-catalog-solution-hub) | Catalog 🔒 | Solution Hub — catalogue of solution archetypes, delivery templates, and implementation accelerators for recurring enterprise technology challenges. |
-| [`dea-catalog-stakeholders`](https://github.com/technehub-labs/dea-catalog-stakeholders) | Catalog 🔒 | Stakeholders catalog — DEA L1 catalog repository for external/affected parties whose relationship with the enterprise is engaged in or affected by enterprise processes. |
-| [`dea-catalog-strategic-objectives`](https://github.com/technehub-labs/dea-catalog-strategic-objectives) | Catalog | Strategic Objective — high-level outcomes the enterprise seeks to achieve. |
-| [`dea-catalog-system-functions`](https://github.com/technehub-labs/dea-catalog-system-functions) | Catalog | System Function — capability that automates a business process. |
-| [`dea-catalog-technology-radar`](https://github.com/technehub-labs/dea-catalog-technology-radar) | Catalog | An emerging technology or technique being tracked (assess/trial/adopt/hold) prior to becoming a governed L5 Technology. |
-| [`dea-catalog-tenets`](https://github.com/technehub-labs/dea-catalog-tenets) | Catalog 🔒 | DEA catalog: Tenet (TNT) — non-binding beliefs that inform Guardrails. OpenDEAM v0.4.0 (ADR-0004; renamed from dea-catalog-principles) |
-| [`dea-catalog-value-streams`](https://github.com/technehub-labs/dea-catalog-value-streams) | Catalog | Value Stream — end-to-end collection of value-creating activities. |
-| [`dea-catalog-taxonomy`](https://github.com/technehub-labs/dea-catalog-taxonomy) | Catalog 🔒 — archived | ARCHIVED (ADR-0004 D2): Taxonomy Node merged into Concept — use dea-catalog-concepts |
-| [`dea-cli`](https://github.com/technehub-labs/dea-cli) | Tooling 🔒 | Digital Enterprise Architecture CLI — query, validate, and generate viewpoints from DEA catalogs. |
-| [`dea-code-gen`](https://github.com/technehub-labs/dea-code-gen) | Tooling 🔒 | Code generation from DEA catalog entries — ADR generator, component spec generator, API contract generator. |
-| [`dea-scripts`](https://github.com/technehub-labs/dea-scripts) | Tooling | Tools and playbooks for digital transformation initiatives |
-| [`dea-web-viewer`](https://github.com/technehub-labs/dea-web-viewer) | Tooling | Visual canvas and tooling for enterprise architecture modeling |
-| [`technehub-labs.github.io`](https://github.com/technehub-labs/technehub-labs.github.io) | Site | Techne Research & Dev. Labs |
-| [`.github`](https://github.com/technehub-labs/.github) | Governance | TechNeHub Labs organisation profile |
-<!-- REPO-TABLE:END -->
-
----
+| I am interested in... | Start with |
+|---|---|
+| Understanding OpenDEAM | [Architecture Framework](https://github.com/technehub-labs/dea-architecture-framework) |
+| The metamodel | [dea-metamodel](https://github.com/technehub-labs/dea-metamodel) |
+| The conceptual foundations | [Metaframework](https://github.com/technehub-labs/dea-metaframework) and [Concepts Model](https://github.com/technehub-labs/dea-concepts-model) |
+| Reference catalogs | [Catalog Index](https://github.com/technehub-labs/.github/blob/main/portfolio/catalogs.md) |
+| Enterprise concepts | [Concepts](https://github.com/technehub-labs/.github/blob/main/portfolio/concepts.md) |
+| Assessment | [Assessment](https://github.com/technehub-labs/.github/blob/main/portfolio/assessment.md) |
+| Developer tooling | [Tooling](https://github.com/technehub-labs/.github/blob/main/portfolio/tooling.md) |
+| Visual modeling | [dea-web-viewer](https://github.com/technehub-labs/dea-web-viewer) |
+| Contributing | [Participate](#participate) |
 
 ## Architecture
 
-### Tier 0 — Root model (OpenDEAM)
+The foundation repositories form a dependency spine; catalogs, tooling, and applications derive from it:
 
-[`dea-architecture-framework`](https://github.com/technehub-labs/dea-architecture-framework) is the root authority: 5 architecture layers (L1 Ecosystem & Value Network · L2 Strategic & Governance · L3 Business Operating Model · L4 Digital & Intelligence · L5 Technology & Execution) plus 2 orthogonal dimensions (Measurement; AI & Automation Governance), building blocks, MECE entity allocation, and typed relationships. **OpenDEAM v0.5.0** — 53 first-level entities, 70 relationships (ADR-0001…0005).
+```mermaid
+flowchart TD
+    AF["Architecture Framework"] --> MF["Metaframework"]
+    MF --> CM["Concepts Model"]
+    CM --> MM["Metamodel"]
+    MM --> ONTO["Ontology"]
+    MM --> SEM["Semantic Architecture"]
+    ONTO --> CAT["Reference Catalogs"]
+    SEM --> CAT
+    CAT --> TOOL["Tooling"]
+    TOOL --> APP["Applications"]
+```
 
-### Tier 1 — Metamodel
+The defining loop this enables: **Describe, Assess, Identify Gap, Decide, Transform, Measure, Reassess**. Architecture stops being merely descriptive.
 
-[`dea-metamodel`](https://github.com/technehub-labs/dea-metamodel) turns the root model into machine-readable artifacts: a canonical YAML metamodel with a Core/Profile ontology split (18 core anchors + 10 profiles, CR-004), JSON Schema, TTL/OWL ontology, SQLite, Pydantic models, TypeScript types, and the published entity graph + SVG viewers. **dea-metamodel v0.9.0** (CR-001…CR-004, 2026-08-16).
+Every structural decision in the portfolio traces to a numbered Change Request in [`dea-metamodel/change-requests`](https://github.com/technehub-labs/dea-metamodel/tree/main/change-requests) and to Architecture Decision Records in the foundation repositories. Repository implementation does not itself establish normative architectural or semantic decisions.
 
-### Tier 2 — Reference Catalogs
+## Explore the Portfolio
 
-Structured collections of architecture assets — one repository per first-level entity — each entry typed against the metamodel, with relationships and provenance metadata, version-pinned to the root model via `metamodel-pointer.yaml`. The centrepiece is **DERA** — the Digital Enterprise Reference Architecture — a synthesising blueprint that assembles all other catalogs into a coherent delivery programme.
+| Area | Purpose |
+|---|---|
+| **Foundation** | Architectural, conceptual, semantic, and metamodel foundations |
+| **Concepts** | Emerging and specialized conceptual models |
+| **Reference Catalogs** | 40+ governed reference catalogs derived from the canonical model |
+| **Assessment** | Assessment models, mechanisms, and evidence |
+| **Tooling** | Tools for modeling, validation, generation, and consumption |
+| **Applications** | Demonstrations and practical realizations |
+| **Governance** | Lifecycle, contribution, and governance assets |
 
-### Tier 3 — Tooling
+The complete repository inventory is maintained in a dedicated portfolio index, classified by architectural role, lifecycle status, and canonical status:
 
-Developer-facing tools to query, validate, generate, and visualise the catalog.
+**[Explore the OpenDEAM Portfolio Index](https://github.com/technehub-labs/.github/blob/main/portfolio/README.md)**
 
-- **`dea-cli`** — `dea query`, `dea validate`, `dea viewpoint`, `dea generate`
-- **`dea-scripts`** — catalog seeding, migration, bulk operations
-- **`dea-code-gen`** — generate Pydantic models, API stubs, ADR stubs from catalog entries
-- **`dea-web-viewer`** — interactive browser for the metamodel and catalog portfolio
+## Featured Repositories
 
-### Governance (cross-cutting)
+A deliberately small set of repositories representing the principal OpenDEAM foundations and implementation entry points:
 
-Policies, processes, and standards that govern contributions and releases across the framework.
-
----
+**[Architecture Framework](https://github.com/technehub-labs/dea-architecture-framework) · [Metaframework](https://github.com/technehub-labs/dea-metaframework) · [Concepts Model](https://github.com/technehub-labs/dea-concepts-model) · [Metamodel](https://github.com/technehub-labs/dea-metamodel) · [Business Capabilities](https://github.com/technehub-labs/dea-catalog-business-capabilities) · [Web Viewer](https://github.com/technehub-labs/dea-web-viewer)**
 
 ## Status
 
-TechNeHub Labs is in **alpha**. Current versions: **OpenDEAM v0.5.0** (root model, ADR-0001…0005) · **dea-metamodel v0.9.0** (CR-001…CR-004, 2026-08-16). The metamodel and core tooling are functional. Catalogs are being populated. The 5-project structure is active — see the GitHub Projects tab.
+TechNeHub Labs is in **alpha**. Current versions: **OpenDEAM v0.5.0** (root model) and **dea-metamodel v1.0.0** (canonical metamodel). The metamodel and core tooling are functional; reference catalogs are being populated.
 
----
+Work is tracked through GitHub Projects: [Foundation Core](https://github.com/orgs/technehub-labs/projects/3) · [Catalog Ecosystem](https://github.com/orgs/technehub-labs/projects/4) · [Developer Tooling](https://github.com/orgs/technehub-labs/projects/5) · [Web Viewer and Packaging](https://github.com/orgs/technehub-labs/projects/6) · [Governance and Standards](https://github.com/orgs/technehub-labs/projects/7).
 
-## Projects
+## Participate
 
-Tracking all deliverables via GitHub Projects:
+Contributions are welcome. Please begin with the repository-specific documentation before proposing changes.
 
-| # | Project | Focus |
-|---|---------|-------|
-| 3 | [Foundation Core](https://github.com/orgs/technehub-labs/projects/3) | Metamodel v1.0 — entities, schema, ontology, CI |
-| 4 | [Catalog Ecosystem](https://github.com/orgs/technehub-labs/projects/4) | All L1 reference catalogs |
-| 5 | [Developer Tooling](https://github.com/orgs/technehub-labs/projects/5) | CLI, scripts, code-gen, web viewer |
-| 6 | [Web Viewer & Packaging](https://github.com/orgs/technehub-labs/projects/6) | Docker, npm, PyPI packaging + GitHub Pages |
-| 7 | [Governance & Standards](https://github.com/orgs/technehub-labs/projects/7) | Contributing, PR templates, branch protection, SBOM, Apache 2.0 |
-
-*(Project #2 — the original DEA Roadmap — is now closed.)*
-
----
-
-## Quick Start
-
-```bash
-# Install the CLI
-npm install -g @technehub-labs/dea-cli
-
-# Query the metamodel
-dea query --type ArchitecturePattern
-
-# Validate a catalog entry
-dea validate --entity Tenet
-
-# Generate a viewpoint for a stakeholder
-dea viewpoint --stakeholder SolutionsArchitect
-
-# Generate an ADR from a catalog entry
-dea generate --template adr --id dea:pattern-cqrs
-```
-
----
-
-## Contributing
-
-Contribution guidelines are being formalised under [Project #7 — Governance & Standards](https://github.com/orgs/technehub-labs/projects/7). In the meantime, open an issue in the relevant repository to propose new entities, patterns, or standards.
-
----
+- **Propose**: open an issue in the relevant repository.
+- **Portfolio classification**: repository family, lifecycle, and featured status are governed through the [portfolio registry](https://github.com/technehub-labs/.github/blob/main/registry/repositories.yaml) and validated nightly.
+- **Governance**: architectural and semantic decisions land through the change-request process, not through repository implementation.
 
 ## License
 
 All TechNeHub Labs repositories are licensed under the Apache License 2.0 unless otherwise noted.
-
-```
-Apache License 2.0 — see individual repo LICENSE files
-```
