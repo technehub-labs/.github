@@ -10,8 +10,13 @@ Usage:
     python3 scripts/check_repo_drift.py --check-only # check, no issue writes
 
 Env:
-    GH_TOKEN      GitHub token (repo + issues scope). Required for issue
-                  management; optional for --check-only on a public org.
+    GH_TOKEN         GitHub token used for issue management and (fallback)
+                     repo listing. The Actions GITHUB_TOKEN only sees public
+                     repos, which makes every private repo look like a dead
+                     link; set ORG_REPOS_TOKEN for full visibility.
+    ORG_REPOS_TOKEN  Token that can list all org repos, including private
+                     (classic PAT with repo scope, or fine-grained PAT with
+                     metadata:read on all org repos). Preferred for listing.
     ORG           Org login (default: technehub-labs)
     REPO          Repo hosting the README/issue (default: .github)
     README_PATH   Path to README (default: profile/README.md)
@@ -86,9 +91,10 @@ def main():
                     help="report drift but do not create/update/close issues")
     args = ap.parse_args()
     token = os.environ.get("GH_TOKEN")
+    list_token = os.environ.get("ORG_REPOS_TOKEN") or token
 
     try:
-        repos = list_org_repos(token)
+        repos = list_org_repos(list_token)
         table = parse_readme_table(README_PATH)
     except Exception as e:
         print(f"ERROR: {e}", file=sys.stderr)
@@ -96,8 +102,22 @@ def main():
 
     live = {r["name"]: {"archived": r["archived"], "private": r["private"]}
             for r in repos}
+
+    # Degraded-visibility detection: if table rows marked private are absent
+    # from the listing, the listing token cannot see private repos (e.g. the
+    # Actions GITHUB_TOKEN). In that mode, skip stale/flag checks for rows
+    # that are not visible instead of reporting them as dead links.
+    invisible_private = sorted(
+        n for n, flags in table.items() if flags["private"] and n not in live)
+    degraded = bool(invisible_private)
+    if degraded:
+        print(f"WARNING: {len(invisible_private)} private table rows are not "
+              "visible to the listing token; skipping stale/flag checks for "
+              "them. Set ORG_REPOS_TOKEN (org-wide read) for full checks.")
+
     missing = sorted(set(live) - set(table))       # in org, not in table
-    stale = sorted(set(table) - set(live))         # in table, not in org
+    stale = sorted(n for n in set(table) - set(live)
+                   if n not in invisible_private)  # in table, not in org
     flag_diff = sorted(
         n for n in set(live) & set(table)
         if live[n]["archived"] != table[n]["archived"]
@@ -138,6 +158,19 @@ def main():
         print("ERROR: GH_TOKEN required for issue management", file=sys.stderr)
         return 2
 
+    try:
+        return manage_issue(token, drift_body)
+    except RuntimeError as e:
+        if "410" in str(e):
+            print(f"ERROR: issue management failed: {e}\n"
+                  f"Issues appear to be disabled on {ORG}/{REPO}. Enable "
+                  "Issues on that repo, or set REPO to a repository with "
+                  "Issues enabled.", file=sys.stderr)
+            return 2
+        raise
+
+
+def manage_issue(token, drift_body):
     # Ensure label exists (ignore 422 already_exists)
     try:
         gh("POST", f"/repos/{ORG}/{REPO}/labels", token,
