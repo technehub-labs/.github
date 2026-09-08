@@ -29,7 +29,7 @@ The portfolio is arranged in repository tiers (T0 root model, T1 metamodel, T2 r
 | Enterprise concepts | [Concepts](https://github.com/technehub-labs/.github/blob/main/portfolio/concepts.md) |
 | Assessment | [Assessment](https://github.com/technehub-labs/.github/blob/main/portfolio/assessment.md) |
 | Developer tooling | [Tooling](https://github.com/technehub-labs/.github/blob/main/portfolio/tooling.md) |
-| Visual modeling | [dea-web-viewer](https://github.com/technehub-labs/dea-web-viewer) |
+| Visual modeling | [Web viewer](https://github.com/technehub-labs/dea-web-viewer) |
 | Contributing | [Participate](#participate) |
 
 ## Architecture
